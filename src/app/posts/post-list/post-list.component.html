@@ -1,0 +1,14 @@
+<h3>This is the list of Posts</h3>
+
+<mat-accordion multi='true' *ngIf='posts.length > 0'>
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      {{post.title}}
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      {{post.content}}
+    </mat-panel-description>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<p *ngIf='posts.length <=0'>No posts added yet!!!</p>
