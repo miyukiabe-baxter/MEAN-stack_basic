@@ -2,6 +2,10 @@
 
 <app-header></app-header>
 <main>
-  <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
-  <app-post-list [posts]="storedPosts"></app-post-list>
+  <!-- When we are not using service, below is the way to pass state from child to parent -->
+  <!-- <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+  <app-post-list [posts]="storedPosts"></app-post-list> -->
+
+  <app-post-create></app-post-create>
+  <app-post-list></app-post-list>
 </main>

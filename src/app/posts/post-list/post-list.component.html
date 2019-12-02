@@ -1,13 +1,15 @@
-<h3>This is the list of Posts</h3>
+<h2>List of Posts</h2>
 
 <mat-accordion multi='true' *ngIf='posts.length > 0'>
   <mat-expansion-panel *ngFor="let post of posts">
     <mat-expansion-panel-header>
       {{post.title}}
     </mat-expansion-panel-header>
-    <mat-panel-description>
-      {{post.content}}
-    </mat-panel-description>
+    <p>{{post.content}}</p>
+    <mat-action-row>
+      <button mat-button color='primary'>Edit</button>
+      <button mat-button color='warn'>Delete</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 
