@@ -23,10 +23,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     // this.posts = postsService.getPosts()
   }
 
-  //when we import OnInit, we have to deploy onOnInit too
+  //when we import OnInit, we have to deploy ngOnInit too
   ngOnInit() {
-    console.log('this is in the list', this.posts)
-    this.posts = this.postsService.getPosts();
+    this.postsService.getPosts();
     //ro make sure this subscription is destroied when we finish, we add OnDestroy
     this.postsSub = this.postsService.getPostUpdatedListener().subscribe((posts: Post[]) => {
       this.posts = posts
