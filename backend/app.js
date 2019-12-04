@@ -1,10 +1,21 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const app = express()
+const Post = require('./models/post')
+
+
+mongoose.connect('mongodb+srv://miyuki:19870809@cluster0-qgvou.mongodb.net/test?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => { console.log('Connected to Database') })
+  .catch(() => { console.log('Conection Failed') })
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
+// console.log(process.env.MONGODBPSW)
 //allowing requests from different server "*" to access to api end point. Otherwise, CORS issue happens.
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,9 +24,13 @@ app.use((req, res, next) => {
   next()
 })
 
-app.post('/api/posts', (req, res, next) => {
-  const post = req.body
-  console.log('im inside app', post)
+app.post('/api/posts', async (req, res, next) => {
+  const { title, content } = req.body
+  const post = new Post({
+    title,
+    content
+  })
+  await post.save()
   res.status(201).json({
     message: 'Post added successfully'
   })
@@ -23,22 +38,14 @@ app.post('/api/posts', (req, res, next) => {
 })
 
 app.get('/api/posts', (req, res, next) => {
-  const posts = [
-    {
-      id: 'fdefcdaf',
-      title: 'First server-side post',
-      content: 'This is coming from the server',
-    },
-    {
-      id: 'gkleg',
-      title: 'Second server-side post',
-      content: 'This is a second message coming from the server',
-    },
-  ]
-  res.status(200).json({
-    message: 'Posts fetched succesfully',
-    posts: posts
-  });
+  Post.find()
+    .then(documents => {
+      res.status(200).json({
+        message: 'Posts fetched succesfully',
+        posts: documents
+      });
+    })
+
 })
 
 module.exports = app;
