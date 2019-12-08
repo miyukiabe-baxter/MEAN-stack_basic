@@ -15,7 +15,7 @@ mongoose.connect('mongodb+srv://miyuki:19870809@cluster0-qgvou.mongodb.net/test?
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// console.log(process.env.MONGODBPSW)
+
 //allowing requests from different server "*" to access to api end point. Otherwise, CORS issue happens.
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,9 +30,12 @@ app.post('/api/posts', async (req, res, next) => {
     title,
     content
   })
-  await post.save()
-  res.status(201).json({
-    message: 'Post added successfully'
+  await post.save().then((result) => {
+    res.status(201).json({
+      message: 'Post added successfully',
+      postId: result._id
+    })
+
   })
 
 })
@@ -45,7 +48,12 @@ app.get('/api/posts', (req, res, next) => {
         posts: documents
       });
     })
+})
 
+app.delete('/api/posts/:id', (req, res, next) => {
+  Post.deleteOne({ _id: req.params.id }).then((result) => {
+    res.status(200).json({ message: "Post deleted" })
+  })
 })
 
 module.exports = app;
