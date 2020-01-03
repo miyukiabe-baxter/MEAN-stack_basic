@@ -6,6 +6,10 @@
   <!-- <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
   <app-post-list [posts]="storedPosts"></app-post-list> -->
 
+  <!-- When we are not using angular routes, this is the way to specify which page I would like to display
   <app-post-create></app-post-create>
-  <app-post-list></app-post-list>
+  <app-post-list></app-post-list> -->
+
+  <!-- We can use router-outlet because we imported Routermodule and imported in app.module.ts -->
+  <router-outlet></router-outlet>
 </main>

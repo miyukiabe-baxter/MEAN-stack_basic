@@ -3,6 +3,7 @@ import { Component, Output, EventEmitter, } from '@angular/core';
 
 import { Post } from '../post.model'
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class PostCreateComponent {
     //this.postCreated.emit(post)
   }
 
-  constructor(public postCreate: PostsService) { }
+  constructor(public postCreate: PostsService, public route: ActivatedRoute) { }
 
 
 
