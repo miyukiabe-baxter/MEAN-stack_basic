@@ -13,7 +13,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   //@Input() posts: Post[] = []
   posts: Post[] = []
   //constructor(public postsService: PostsService) automatically create postsService instance.
-
+  isLoading = false;
   private postsSub: Subscription;
   //instanceName: PostsService <<< invoking PostsService class and assign to instanceName.
   //I can access to methods by instanceName.addPosts()
@@ -25,9 +25,11 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   //when we import OnInit, we have to deploy ngOnInit too
   ngOnInit() {
+    this.isLoading = true;
     this.postsService.getPosts();
     //ro make sure this subscription is destroied when we finish, we add OnDestroy
     this.postsSub = this.postsService.getPostUpdatedListener().subscribe((posts: Post[]) => {
+      this.isLoading = false;
       this.posts = posts
     })
   }

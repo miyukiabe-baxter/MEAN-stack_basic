@@ -1,3 +1,7 @@
 .mat-expansion-panel p {
   text-align: left;
 }
+
+mat-spinner {
+  margin: auto
+}
